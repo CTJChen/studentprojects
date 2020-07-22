@@ -29,10 +29,12 @@ nupipeline indir=/path_to_nustar_data/60061217004/ \
 ```
 If you get any error messages here, try running nupipeline without any arguments, and set the parameters interactively. 
 
-10. Once you've ran nupipeline (it takes a while), you can visually check the event lists by going into your outdir
+10. Once you've ran nupipeline (it takes a while), you can visually check the event lists by going into your outdir (look for \*\_cl.evt,  they are the event lists)
 ```
-ds9 
+ds9 nu60061217004A01_cl.evt
 ```
+The \*.img.gz files in the original event\_cl folder can also be used to visually finding sources and select regions. 
+
 
 11. The source we are interested in is called IC 750, note that it's not the two luminous sourcces in the center of the FOV, IC 751, but you should see some weak signal at the coordinate of IC 751 (which you can find out using services such as NED). Once you've located the weak source, make a source region and a background region. 
 You should also create regions for one of the luminous IC 751 source, which can be used as a comparison. 
@@ -45,10 +47,10 @@ Note that NuSTAR has two almost-identical instruments, FPMA and FPMB. You will n
 Again, if you encountered errors doing this, try running nuproducts directly and set the parameters interactively with the shell. 
 
 
-13. Once you succesfully run nuproducts, you shuold have some spectral files for analysis. For noisy, low-count data, it is ususally beneficial to bin the data from different channels. It can be achieved by using the FTOOLS' grppha:
+13. Once you succesfully run nuproducts, you shuold have some spectral files for analysis. For noisy, low-count data, it is ususally beneficial to bin the data from different channels. It can be achieved by using the FTOOLS' grppha such as:
 ```
-
+grppha infile=nu60061217002A01_sr.pha outfile=nu60061217002A01_sr.gr20.pha comm="group min 3" tempc="exit"
 ```
+You can google "ftools grppha" for more details. Basically this command re-group the spectra by binning the counts into channels with at least 3 counts in them. 
 
 14. We can now use xspec or sherpa (there's also something called ISIS, https://space.mit.edu/home/mnowak/isis_vs_xspec/ ) to analyze the data. Since you are new to this you should spend sometime exploring these options, and pick the one you feel the most comfortable using. I do most of my X-ray spectral analysis using XSPEC.
-
